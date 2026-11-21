@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxtjs/color-mode'],
   typescript: {
     strict: true,
   },
@@ -21,6 +21,14 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+
+  colorMode: {
+    // "system" follows the OS; the user's choice is remembered in localStorage
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
+    storageKey: 'konst-dev-theme',
   },
 
   app: {
