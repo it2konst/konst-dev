@@ -1,7 +1,11 @@
+// Public address of the site. Used for hreflang and canonical links; set
+// NUXT_PUBLIC_SITE_URL on the hosting if the site lives somewhere else.
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://konst-dev.vercel.app'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/color-mode'],
+  modules: ['@nuxt/eslint', '@nuxtjs/color-mode', '@nuxtjs/i18n'],
   typescript: {
     strict: true,
   },
@@ -31,9 +35,30 @@ export default defineNuxtConfig({
     storageKey: 'konst-dev-theme',
   },
 
+  runtimeConfig: {
+    public: { siteUrl },
+  },
+
+  i18n: {
+    // English lives at /, Russian at /ru. Each page exists in both languages
+    // with its own address, so search engines can index both.
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'ru', language: 'ru-RU', name: 'Русский', file: 'ru.json' },
+    ],
+    defaultLocale: 'en',
+    baseUrl: siteUrl,
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      // Only the first visit to / is redirected; after that the choice is kept
+      useCookie: true,
+      cookieKey: 'konst-dev-locale',
+      redirectOn: 'root',
+    },
+  },
+
   app: {
     head: {
-      htmlAttrs: { lang: 'en' },
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },

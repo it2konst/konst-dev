@@ -1,7 +1,12 @@
+<script setup lang="ts">
+const { t } = useI18n()
+useHead({ title: () => t('home.title') })
+</script>
+
 <template>
   <main class="container">
-    <h1>konst-dev</h1>
-    <p>Design tokens check: body text, <a href="#">a link</a> and <code>code</code>.</p>
+    <h1>{{ t('home.greeting') }}</h1>
+    <p>{{ t('home.lead') }}</p>
     <ClientOnly>
       <UiThemeSwitch />
     </ClientOnly>

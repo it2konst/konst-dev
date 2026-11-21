@@ -1,0 +1,53 @@
+{
+  "site": {
+    "name": "Konstantin",
+    "description": "Frontend developer and network engineer. Vue and Nuxt apps, browser tools that work offline, UDP transports in Go."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main",
+    "home": "Konstantin, home page"
+  },
+  "nav": {
+    "projects": "Projects",
+    "about": "About"
+  },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "locale": {
+    "switchTo": "Русский",
+    "switchToShort": "RU"
+  },
+  "home": {
+    "title": "Frontend developer and network engineer",
+    "greeting": "Hi, I'm Konstantin.",
+    "lead": "I build Vue and Nuxt apps, browser tools that keep your files on your device, and UDP transports in Go for games that can't afford lag.",
+    "seeProjects": "See projects",
+    "github": "GitHub profile"
+  },
+  "projects": {
+    "title": "Projects",
+    "lead": "Tools and sites I've built, with live demos and source code.",
+    "empty": "The project list arrives in the next stage of the roadmap."
+  },
+  "about": {
+    "title": "About",
+    "lead": "Experience, skills and how to reach me.",
+    "empty": "This page is filled in a later stage of the roadmap."
+  },
+  "footer": {
+    "source": "Source code",
+    "github": "GitHub"
+  },
+  "error": {
+    "notFound": "Page not found",
+    "notFoundText": "There is no page at this address. It may have moved, or the link has a typo.",
+    "generic": "Something went wrong",
+    "genericText": "The page failed to load. Reload it, or go back to the home page.",
+    "home": "Go to the home page"
+  }
+}

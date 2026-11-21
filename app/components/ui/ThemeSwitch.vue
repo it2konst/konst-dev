@@ -2,11 +2,12 @@
 // Three-way switch: follow the system, or force light or dark.
 // A radio group is the honest semantics here: exactly one option is active.
 const colorMode = useColorMode()
+const { t } = useI18n()
 
 const options = [
-  { value: 'system', label: 'System', icon: 'system' },
-  { value: 'light', label: 'Light', icon: 'light' },
-  { value: 'dark', label: 'Dark', icon: 'dark' },
+  { value: 'system', icon: 'system' },
+  { value: 'light', icon: 'light' },
+  { value: 'dark', icon: 'dark' },
 ] as const
 
 function select(value: (typeof options)[number]['value']) {
@@ -15,7 +16,7 @@ function select(value: (typeof options)[number]['value']) {
 </script>
 
 <template>
-  <div class="theme-switch" role="radiogroup" aria-label="Theme">
+  <div class="theme-switch" role="radiogroup" :aria-label="t('theme.label')">
     <button
       v-for="option in options"
       :key="option.value"
@@ -23,10 +24,10 @@ function select(value: (typeof options)[number]['value']) {
       role="radio"
       class="theme-switch__option"
       :aria-checked="colorMode.preference === option.value"
-      :title="option.label"
+      :title="t(`theme.${option.value}`)"
       @click="select(option.value)"
     >
-      <span class="visually-hidden">{{ option.label }}</span>
+      <span class="visually-hidden">{{ t(`theme.${option.value}`) }}</span>
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <template v-if="option.icon === 'system'">
           <rect x="3" y="4" width="18" height="12" rx="2" />
