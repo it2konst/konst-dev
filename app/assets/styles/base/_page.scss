@@ -1,0 +1,23 @@
+// Shared opening block of inner pages: title, lead paragraph, optional note.
+.page-intro {
+  display: grid;
+  gap: var(--space-4);
+
+  h1 {
+    font-size: var(--text-3xl);
+    letter-spacing: -0.025em;
+  }
+}
+
+.page-intro__lead {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.page-intro__note {
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  border-left: 3px solid var(--color-accent-fill);
+  background: var(--color-surface);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}

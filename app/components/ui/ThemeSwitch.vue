@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Three-way switch: follow the system, or force light or dark.
-// A radio group is the honest semantics here: exactly one option is active.
+// Toggle buttons with aria-pressed: each is reachable with Tab and screen
+// readers announce which one is on.
 const colorMode = useColorMode()
 const { t } = useI18n()
 
@@ -16,14 +17,13 @@ function select(value: (typeof options)[number]['value']) {
 </script>
 
 <template>
-  <div class="theme-switch" role="radiogroup" :aria-label="t('theme.label')">
+  <div class="theme-switch" role="group" :aria-label="t('theme.label')">
     <button
       v-for="option in options"
       :key="option.value"
       type="button"
-      role="radio"
       class="theme-switch__option"
-      :aria-checked="colorMode.preference === option.value"
+      :aria-pressed="colorMode.preference === option.value"
       :title="t(`theme.${option.value}`)"
       @click="select(option.value)"
     >
@@ -81,7 +81,7 @@ function select(value: (typeof options)[number]['value']) {
     color: var(--color-text);
   }
 
-  &[aria-checked='true'] {
+  &[aria-pressed='true'] {
     background: var(--color-accent-fill);
     color: var(--color-on-accent);
   }
