@@ -1,0 +1,49 @@
+@use 'primitives' as p;
+
+// Semantic colors. The light theme is the default; @nuxtjs/color-mode puts
+// .dark on <html> before the first paint, so there is no flash on load.
+:root {
+  color-scheme: light;
+
+  --color-bg: #{p.$neutral-100};
+  --color-surface: #{p.$neutral-50};
+  --color-surface-raised: #{p.$neutral-0};
+  --color-border: #{p.$neutral-300};
+  --color-border-subtle: #{p.$neutral-200};
+
+  --color-text: #{p.$neutral-ink};
+  --color-text-muted: #{p.$neutral-600};
+
+  // Accent as text and lines: dark gold, readable on the light background
+  --color-accent: #{p.$signal-800};
+  --color-accent-hover: #{p.$signal-900};
+  // Accent as a fill: signal yellow with dark text on top
+  --color-accent-fill: #{p.$signal-400};
+  --color-accent-fill-hover: #{p.$signal-500};
+  --color-on-accent: #{p.$neutral-ink};
+
+  --color-focus: #{p.$signal-800};
+  --color-selection: #{rgba(p.$signal-400, 0.45)};
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #{p.$neutral-950};
+  --color-surface: #{p.$neutral-900};
+  --color-surface-raised: #{p.$neutral-850};
+  --color-border: #{p.$neutral-800};
+  --color-border-subtle: #{p.$neutral-850};
+
+  --color-text: #{p.$neutral-text-dark};
+  --color-text-muted: #{p.$neutral-muted-dark};
+
+  --color-accent: #{p.$signal-400};
+  --color-accent-hover: #{p.$signal-300};
+  --color-accent-fill: #{p.$signal-400};
+  --color-accent-fill-hover: #{p.$signal-300};
+  --color-on-accent: #{p.$neutral-950};
+
+  --color-focus: #{p.$signal-400};
+  --color-selection: #{rgba(p.$signal-400, 0.3)};
+}

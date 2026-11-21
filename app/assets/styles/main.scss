@@ -1,0 +1,6 @@
+// Entry point for global styles. Order matters: tokens first, then base.
+@use 'tokens/semantic';
+@use 'tokens/scale';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/utilities';

@@ -1,0 +1,26 @@
+// Raw palette. Components never use these directly: they go through the
+// semantic custom properties in _semantic.scss, which switch with the theme.
+
+// Cool neutrals, from datasheet paper to graphite. No pure white or black.
+$neutral-0: #fbfbfc;
+$neutral-50: #f4f5f7;
+$neutral-100: #eceef0;
+$neutral-200: #dde1e5;
+$neutral-300: #c9cfd5;
+$neutral-500: #6f7882;
+$neutral-600: #555d66;
+$neutral-700: #3a4148;
+$neutral-800: #2f363c;
+$neutral-850: #242a2f;
+$neutral-900: #1d2125;
+$neutral-950: #16191c;
+$neutral-text-dark: #e4e7ea;
+$neutral-muted-dark: #9aa3ab;
+$neutral-ink: #1b1f23;
+
+// Signal yellow, the same accent as the GitHub profile header.
+$signal-300: #f6d971;
+$signal-400: #f2cc4d;
+$signal-500: #e6b82a;
+$signal-800: #7a5a00;
+$signal-900: #5e4500;
