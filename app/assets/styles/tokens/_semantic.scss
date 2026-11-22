@@ -22,6 +22,12 @@
   --color-accent-fill-hover: #{p.$signal-500};
   --color-on-accent: #{p.$neutral-ink};
 
+  // The terminal stays dark in the light theme too
+  --color-terminal-bg: #{p.$neutral-950};
+  --color-terminal-border: #{p.$neutral-950};
+  --color-terminal-text: #{p.$neutral-text-dark};
+  --color-terminal-prompt: #{p.$signal-400};
+
   --color-focus: #{p.$signal-800};
   --color-selection: #{rgba(p.$signal-400, 0.45)};
 }
@@ -43,6 +49,11 @@
   --color-accent-fill: #{p.$signal-400};
   --color-accent-fill-hover: #{p.$signal-300};
   --color-on-accent: #{p.$neutral-950};
+
+  --color-terminal-bg: #{p.$neutral-900};
+  --color-terminal-border: #{p.$neutral-800};
+  --color-terminal-text: #{p.$neutral-text-dark};
+  --color-terminal-prompt: #{p.$signal-400};
 
   --color-focus: #{p.$signal-400};
   --color-selection: #{rgba(p.$signal-400, 0.3)};

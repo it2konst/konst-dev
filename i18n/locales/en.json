@@ -31,8 +31,15 @@
   },
   "projects": {
     "title": "Projects",
-    "lead": "Tools and sites I've built, with live demos and source code.",
-    "empty": "The project list arrives in the next stage of the roadmap."
+    "lead": "Tools and sites I've built, newest first, with live demos and source code.",
+    "empty": "No projects yet.",
+    "demo": "Live demo",
+    "repo": "Source code",
+    "terminalLabel": "{name} has no user interface; these are the commands to run it.",
+    "status": {
+      "in-progress": "In progress",
+      "archived": "Archived"
+    }
   },
   "about": {
     "title": "About",
