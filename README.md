@@ -4,14 +4,20 @@
 
 [![CI](https://github.com/it2konst/konst-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/it2konst/konst-dev/actions/workflows/ci.yml)
 
+**Live: [konst-dev.vercel.app](https://konst-dev.vercel.app)**
+
 My portfolio site, built with Nuxt 4. Each project is one JSON file in the repository: commit the file, and the site rebuilds with a new card, a project page and both languages. No CMS, no database, no admin panel.
 
-![konst-dev home page, light theme on the left and dark on the right](docs/screenshots/overview.png)
+![The projects page, light theme on the left and dark on the right](docs/screenshots/projects.png)
 
-> **In progress.** The shell is done: design tokens, light and dark themes, English and Russian, the layout, tests and CI. Projects arrive in the next stage of the [roadmap](#roadmap).
+> **In progress.** The shell and the project list are done: projects come from JSON files checked against a schema. Project pages and filters arrive in the next stage of the [roadmap](#roadmap).
 
 ## Features
 
+- Projects are data: one JSON file per project, both languages in the same file, checked against a schema at build time
+- A typo in a technology name, a missing translation or a bad date fails the build with a clear message instead of reaching the site
+- The project list: newest first, a screenshot, date and status, a summary, the stack, and links to the demo and the code
+- Projects without a user interface show the commands to run them in a terminal block
 - Static site: every page is pre-rendered to HTML, so it loads fast and hosts anywhere
 - English at `/` and Russian at `/ru`, each page with its own address, a canonical link and hreflang alternates for search engines
 - The first visit follows the browser language; after that the choice is kept
@@ -33,6 +39,7 @@ My portfolio site, built with Nuxt 4. Each project is one JSON file in the repos
 | Framework       | Nuxt 4, Vue 3, TypeScript (strict)                       |
 | Rendering       | Static generation with `nuxt generate`, hosted on Vercel |
 | Styles          | SCSS, design tokens as CSS custom properties, no UI kit  |
+| Content         | Nuxt Content 3 on Node's built-in SQLite, Zod schemas    |
 | Localization    | @nuxtjs/i18n                                             |
 | Themes          | @nuxtjs/color-mode                                       |
 | Fonts           | @fontsource-variable/onest, jetbrains-mono               |
@@ -66,6 +73,48 @@ The dev server runs at http://localhost:3000.
 | `pnpm test`         | Run all tests once                             |
 | `pnpm test:watch`   | Run tests on every change                      |
 
+## Adding a project
+
+1. Put a screenshot in `public/projects/<slug>/`, for example `cover.webp`. 16:10 works best; 1440×900 WebP is a good size.
+2. Create `content/projects/<slug>.json`. The file name becomes the project's address, so use lowercase letters, digits and hyphens.
+3. Run `pnpm test`: it checks the file against the schema and tells you exactly what is missing. Then commit.
+
+```json
+{
+  "name": "svg-forge",
+  "date": "2026-11",
+  "status": "live",
+  "featured": true,
+  "summary": { "en": "One or two sentences.", "ru": "Одно-два предложения." },
+  "highlights": {
+    "en": ["What is notable inside", "Up to six points"],
+    "ru": ["Что интересного внутри", "До шести пунктов"]
+  },
+  "stack": ["vue", "typescript", "svgo"],
+  "links": {
+    "repo": "https://github.com/it2konst/svg-forge",
+    "demo": "https://svg-forge-two.vercel.app"
+  },
+  "cover": {
+    "src": "/projects/svg-forge/cover.webp",
+    "alt": { "en": "What the screenshot shows", "ru": "Что на скриншоте" }
+  }
+}
+```
+
+| Field        | Required | What it is                                                                           |
+| ------------ | -------- | ------------------------------------------------------------------------------------ |
+| `name`       | yes      | Display name, usually the repository name                                            |
+| `date`       | yes      | Release or last major update as `YYYY-MM`; the list is sorted newest first           |
+| `status`     | yes      | `live`, `in-progress` or `archived`; the last two get a label                        |
+| `featured`   | yes      | Shown on the home page                                                               |
+| `summary`    | yes      | One or two sentences in English and Russian                                          |
+| `highlights` | yes      | Up to six points per language, the same number in both                               |
+| `stack`      | yes      | Ids from [`shared/utils/stack.ts`](shared/utils/stack.ts); add a new one there first |
+| `links`      | yes      | `repo` on GitHub; `demo` is required for live projects with a user interface         |
+| `cover`      | one of   | Screenshot path and its description in both languages                                |
+| `terminal`   | one of   | Up to five commands, shown instead of a screenshot for projects without a UI         |
+
 ### Site address
 
 Canonical and hreflang links need the public address of the site. It defaults to `https://konst-dev.vercel.app`; to use another one, set `NUXT_PUBLIC_SITE_URL` in the hosting settings.
@@ -74,9 +123,10 @@ Canonical and hreflang links need the public address of the site. It defaults to
 
 Tests run with Vitest locally and on every push in GitHub Actions, together with lint, formatting, type-check and the static build.
 
-- **Design tokens:** the test reads the SCSS token files and checks every text color against every surface in both themes for WCAG AA contrast, plus text on the accent fill. Change the palette in a way that hurts readability, and CI fails.
+- **Design tokens:** the test reads the SCSS token files and checks every text color against every surface in both themes for WCAG AA contrast, plus text on the accent fill and in the terminal block. Change the palette in a way that hurts readability, and CI fails.
+- **Project files:** every file in `content/projects` is checked against the schema, plus the rules that span fields or the file system: a cover or a terminal block, a demo link for live projects with an interface, a URL-safe file name, the cover present on disk. The schema itself is tested with broken examples.
 - **Translations:** English and Russian have the same keys, no empty strings and no long dashes.
-- **Components**, mounted in a real Nuxt app: the theme switch marks one option as pressed and changes the theme; the language link points to the same page in the other language.
+- **Components**, mounted in a real Nuxt app: the theme switch marks one option as pressed and changes the theme; the language link points to the same page in the other language; the project card with a cover and with a terminal, link names for screen readers.
 
 ## Project structure
 
@@ -88,21 +138,27 @@ app/
     _mixins.scss breakpoints and helpers, available in every component
   components/
     layout/      header and footer
+    project/     project card, stack tags, terminal block
     ui/          theme switch, language link
-  composables/   shared head tags: title, description, hreflang
+  composables/   head tags, project queries, picking the language from content
   layouts/       page frame with the skip link
   pages/         home, projects, about
   error.vue      404 and error page
+content/projects/  one JSON file per project
+public/projects/   project screenshots
+shared/
+  schema/        the project schema, used by Nuxt Content and the tests
+  utils/         the list of technologies a project can use
 i18n/locales/    English and Russian messages
 test/
-  unit/          tokens and translations
+  unit/          project files, schema, tokens and translations
   nuxt/          components inside Nuxt
 ```
 
 ## Roadmap
 
 1. ~~Shell: tooling, design tokens, themes, EN/RU, layout, tests and CI~~ ✓
-2. Projects as data: a typed Nuxt Content collection, one JSON file per project, the project grid
+2. ~~Projects as data: a typed Nuxt Content collection, one JSON file per project, the project list~~ ✓
 3. Project pages and filters: a page per project with screenshots and a write-up, filtering by stack, optimized images
 4. Home page: the hero and featured projects
 5. About and contacts: experience, skills, links
