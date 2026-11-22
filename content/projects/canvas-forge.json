@@ -1,0 +1,40 @@
+{
+  "name": "canvas-forge",
+  "date": "2026-11",
+  "status": "live",
+  "featured": true,
+  "summary": {
+    "en": "A Paint-style image editor that runs entirely in the browser: eleven tools, layers, selection and the clipboard, zoom up to 6400% and undo for every change. Installs as an app and works offline.",
+    "ru": "Графический редактор в духе Paint, который целиком работает в браузере: одиннадцать инструментов, слои, выделение и буфер обмена, масштаб до 6400% и отмена любого действия. Устанавливается как приложение и работает офлайн."
+  },
+  "highlights": {
+    "en": [
+      "Drawing engine in plain TypeScript, separate from Vue and covered by unit tests",
+      "Pen pressure for the brush, pinch to zoom on touch screens, sharp on HiDPI displays",
+      "Up to 20 layers; undo for layer actions stores no pixel copies",
+      "Copy and paste through the system clipboard, so pictures move between apps",
+      "Autosave to IndexedDB: the image is still there on the next visit",
+      "Appears under \"Open with\" for images once installed in Chrome or Edge"
+    ],
+    "ru": [
+      "Движок рисования на чистом TypeScript, отделён от Vue и покрыт юнит-тестами",
+      "Нажим пера для кисти, масштаб щипком на сенсорных экранах, чёткость на HiDPI",
+      "До 20 слоёв; отмена действий со слоями не копирует пиксели",
+      "Копирование и вставка через системный буфер обмена, картинки переносятся между приложениями",
+      "Автосохранение в IndexedDB: при следующем визите изображение на месте",
+      "После установки в Chrome или Edge появляется в меню «Открыть с помощью» для картинок"
+    ]
+  },
+  "stack": ["vue", "typescript", "canvas-api", "vuetify", "pinia", "pwa", "indexeddb", "vitest"],
+  "links": {
+    "repo": "https://github.com/it2konst/canvas-forge",
+    "demo": "https://canvas-forge-beta.vercel.app"
+  },
+  "cover": {
+    "src": "/projects/canvas-forge/cover.webp",
+    "alt": {
+      "en": "canvas-forge with a drawing of a house on a hill, tools on the left and the layers panel on the right, in light and dark themes",
+      "ru": "canvas-forge с рисунком домика на холме, инструменты слева и панель слоёв справа, в светлой и тёмной темах"
+    }
+  }
+}

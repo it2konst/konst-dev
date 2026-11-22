@@ -1,0 +1,35 @@
+{
+  "name": "game-tun",
+  "date": "2026-09",
+  "status": "in-progress",
+  "featured": true,
+  "summary": {
+    "en": "GameTunnel, my own UDP transport for Xray-core, built for games and streaming where every millisecond counts. Encrypted, with traffic that looks like standard QUIC.",
+    "ru": "GameTunnel, мой UDP-транспорт для Xray-core, сделанный для игр и стриминга, где важна каждая миллисекунда. С шифрованием и трафиком, похожим на обычный QUIC."
+  },
+  "highlights": {
+    "en": [
+      "UDP instead of TCP: no head-of-line blocking, minimal latency",
+      "ChaCha20-Poly1305 encryption, Curve25519 key exchange with forward secrecy and a pre-shared key",
+      "Packets shaped like QUIC, with padding to mask their size",
+      "Server chaining and a web server fallback on the same port",
+      "A single-file configurator that generates matching server and client configs"
+    ],
+    "ru": [
+      "UDP вместо TCP: нет блокировки очереди, минимальная задержка",
+      "Шифрование ChaCha20-Poly1305, обмен ключами Curve25519 с прямой секретностью и общий ключ (PSK)",
+      "Пакеты по структуре похожи на QUIC, padding скрывает их размер",
+      "Цепочки серверов и запасной веб-сервер на том же порту",
+      "Конфигуратор в одном файле собирает согласованные конфиги сервера и клиента"
+    ]
+  },
+  "stack": ["go", "xray-core", "udp", "linux"],
+  "links": {
+    "repo": "https://github.com/it2konst/game-tun"
+  },
+  "terminal": [
+    "game-tun uuid",
+    "game-tun run -test -c /etc/game-tun.json",
+    "sudo systemctl enable --now game-tun"
+  ]
+}

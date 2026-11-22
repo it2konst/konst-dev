@@ -1,0 +1,38 @@
+{
+  "name": "svg-forge",
+  "date": "2026-11",
+  "status": "live",
+  "featured": true,
+  "summary": {
+    "en": "An SVG optimizer that runs entirely in the browser, inspired by SVGOMG. SVGO 4 in Web Workers, batch processing, and export as a Vue component, CSS or an SVG sprite. Installs as an app and works offline.",
+    "ru": "Оптимизатор SVG, который целиком работает в браузере, по мотивам SVGOMG. SVGO 4 в Web Workers, пакетная обработка и экспорт во Vue-компонент, CSS или SVG-спрайт. Устанавливается как приложение и работает офлайн."
+  },
+  "highlights": {
+    "en": [
+      "SVGO runs in a Web Worker, so the interface never freezes; the result updates live",
+      "Batches are optimized in parallel workers and download as a zip",
+      "An SVG sprite from a batch, with ids prefixed so icons never clash",
+      "User SVG never touches the page DOM: previews go through <img>, scripts never run",
+      "Before and after slider, and a code view with search that loads on demand"
+    ],
+    "ru": [
+      "SVGO работает в Web Worker, интерфейс не зависает, результат обновляется на лету",
+      "Пакет файлов оптимизируется в параллельных воркерах и скачивается zip-архивом",
+      "SVG-спрайт из пакета, id внутри получают префиксы, иконки не конфликтуют",
+      "Пользовательский SVG не попадает в DOM страницы: превью через <img>, скрипты не выполняются",
+      "Слайдер «до и после» и просмотр кода с поиском, который загружается по требованию"
+    ]
+  },
+  "stack": ["vue", "typescript", "svgo", "web-workers", "vuetify", "pinia", "pwa", "vitest"],
+  "links": {
+    "repo": "https://github.com/it2konst/svg-forge",
+    "demo": "https://svg-forge-two.vercel.app"
+  },
+  "cover": {
+    "src": "/projects/svg-forge/cover.webp",
+    "alt": {
+      "en": "svg-forge showing an optimized landscape illustration with the SVGO settings panel, in light and dark themes",
+      "ru": "svg-forge с оптимизированной иллюстрацией пейзажа и панелью настроек SVGO, в светлой и тёмной темах"
+    }
+  }
+}

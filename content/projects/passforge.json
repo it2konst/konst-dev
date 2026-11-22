@@ -1,0 +1,38 @@
+{
+  "name": "passforge",
+  "date": "2026-10",
+  "status": "live",
+  "featured": false,
+  "summary": {
+    "en": "A password generator in a single HTML file with zero dependencies and zero network requests. Crypto-grade randomness without bias, and a strength meter based on real entropy.",
+    "ru": "Генератор паролей в одном HTML-файле без зависимостей и без единого сетевого запроса. Криптостойкая случайность без перекосов и шкала надёжности на основе настоящей энтропии."
+  },
+  "highlights": {
+    "en": [
+      "Web Crypto with rejection sampling, so no character is more likely than another",
+      "Every chosen character type is guaranteed without skewing the distribution",
+      "Strength and crack time computed from the generator's own entropy",
+      "A strict Content-Security-Policy: the page cannot load or send anything",
+      "English and Russian, light and dark themes, keyboard shortcut to regenerate"
+    ],
+    "ru": [
+      "Web Crypto с rejection sampling: ни один символ не выпадает чаще других",
+      "Каждый выбранный тип символов гарантирован без искажения распределения",
+      "Надёжность и время взлома считаются по энтропии самого генератора",
+      "Строгая Content-Security-Policy: страница не может ничего загрузить или отправить",
+      "Английский и русский, светлая и тёмная темы, генерация по горячей клавише"
+    ]
+  },
+  "stack": ["javascript", "html", "css", "web-crypto"],
+  "links": {
+    "repo": "https://github.com/it2konst/passforge",
+    "demo": "https://htmlpreview.github.io/?https://github.com/it2konst/passforge/blob/main/index.html"
+  },
+  "cover": {
+    "src": "/projects/passforge/cover.webp",
+    "alt": {
+      "en": "PassForge in the dark theme with a generated password, its strength rated excellent, and the length slider",
+      "ru": "PassForge в тёмной теме: сгенерированный пароль с оценкой «отличный» и ползунок длины"
+    }
+  }
+}
