@@ -60,6 +60,10 @@ describe.each(Object.entries(themes))('%s theme', (_, tokens) => {
     expect(contrast(tokens['on-accent']!, tokens['accent-fill']!)).toBeGreaterThanOrEqual(4.5)
   })
 
+  it.each(['terminal-text', 'terminal-prompt'])('%s on the terminal meets WCAG AA', (text) => {
+    expect(contrast(tokens[text]!, tokens['terminal-bg']!)).toBeGreaterThanOrEqual(4.5)
+  })
+
   it('has no pure white or black', () => {
     for (const hex of Object.values(tokens)) {
       expect(hex.toLowerCase()).not.toMatch(/^#(000000|ffffff)$/)
