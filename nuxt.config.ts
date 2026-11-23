@@ -5,7 +5,7 @@ const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://konst-dev.vercel.ap
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/content', '@nuxtjs/color-mode', '@nuxtjs/i18n'],
+  modules: ['@nuxt/eslint', '@nuxt/content', '@nuxt/image', '@nuxtjs/color-mode', '@nuxtjs/i18n'],
   typescript: {
     strict: true,
   },
@@ -32,6 +32,16 @@ export default defineNuxtConfig({
       // Node's built-in SQLite (22.5+): no native module to compile on install
       sqliteConnector: 'native',
     },
+  },
+
+  image: {
+    // Screenshots are resized and converted at build time: every page gets
+    // AVIF with a WebP fallback, in the widths its layout actually needs.
+    // Set explicitly, because on Vercel the module would otherwise switch to
+    // Vercel's image service, which a static deployment doesn't have
+    provider: 'ipxStatic',
+    format: ['avif', 'webp'],
+    quality: 70,
   },
 
   colorMode: {

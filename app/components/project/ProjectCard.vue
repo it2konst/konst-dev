@@ -16,15 +16,17 @@ const statusLabel = computed(() =>
 <template>
   <article class="project" :aria-labelledby="headingId">
     <div class="project__media">
-      <img
+      <NuxtPicture
         v-if="project.cover"
-        class="project__cover"
         :src="project.cover.src"
         :alt="pick(project.cover.alt)"
         width="1440"
         height="900"
+        sizes="640:100vw 768:45vw 1280:520px"
+        legacy-format="webp"
         loading="lazy"
         decoding="async"
+        :img-attrs="{ class: 'project__cover' }"
       />
       <ProjectTerminal
         v-else-if="project.terminal"
@@ -82,7 +84,9 @@ const statusLabel = computed(() =>
   }
 }
 
-.project__cover {
+// The <img> is rendered by NuxtPicture, so scoped styles need :deep()
+.project__media :deep(.project__cover) {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 10;
