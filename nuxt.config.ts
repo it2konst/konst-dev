@@ -1,3 +1,14 @@
+import { readdirSync } from 'node:fs'
+
+// Every project page in both languages is listed for pre-rendering, so a
+// page is built even if no link points to it yet
+const projectRoutes = readdirSync('content/projects')
+  .filter((file) => file.endsWith('.json'))
+  .flatMap((file) => {
+    const slug = file.replace(/\.json$/, '')
+    return [`/projects/${slug}`, `/ru/projects/${slug}`]
+  })
+
 // Public address of the site. Used for hreflang and canonical links; set
 // NUXT_PUBLIC_SITE_URL on the hosting if the site lives somewhere else.
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://konst-dev.vercel.app'
@@ -50,6 +61,14 @@ export default defineNuxtConfig({
     fallback: 'light',
     classSuffix: '',
     storageKey: 'konst-dev-theme',
+  },
+
+  nitro: {
+    prerender: {
+      routes: projectRoutes,
+      // A broken internal link fails the build instead of shipping a 404
+      failOnError: true,
+    },
   },
 
   runtimeConfig: {
