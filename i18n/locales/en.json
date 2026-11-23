@@ -50,7 +50,12 @@
     "older": "Older project"
   },
   "filter": {
-    "showWith": "Show projects with {tech}"
+    "showWith": "Show projects with {tech}",
+    "label": "Filter by technology",
+    "all": "All",
+    "shown": "{shown} of {total} projects shown",
+    "none": "No projects with {tech} yet.",
+    "showAll": "Show all projects"
   },
   "about": {
     "title": "About",
