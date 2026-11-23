@@ -31,13 +31,23 @@ describe('ProjectCard', () => {
       'Vue 3',
       'TypeScript',
     ])
-    const links = wrapper.findAll('a').map((a) => a.attributes('href'))
+    const links = wrapper.findAll('.project__links a').map((a) => a.attributes('href'))
     expect(links).toEqual(['https://demo.example', 'https://github.com/it2konst/demo'])
+  })
+
+  it('links the title and the picture to the project page', async () => {
+    const wrapper = await mountSuspended(ProjectCard, { props: { project: base } })
+    expect(wrapper.find('h2 a').attributes('href')).toBe('/projects/demo')
+    // The picture link is a duplicate for the mouse: hidden from the keyboard and screen readers
+    const media = wrapper.find('a.project__media')
+    expect(media.attributes('href')).toBe('/projects/demo')
+    expect(media.attributes('tabindex')).toBe('-1')
+    expect(media.attributes('aria-hidden')).toBe('true')
   })
 
   it('names the project in each link for screen readers', async () => {
     const wrapper = await mountSuspended(ProjectCard, { props: { project: base } })
-    const links = wrapper.findAll('a')
+    const links = wrapper.findAll('.project__links a')
     expect(links.map((a) => a.text())).toEqual(['Live demo', 'Source code'])
     // The accessible name starts with the visible text, as WCAG 2.5.3 asks
     expect(links.map((a) => a.attributes('aria-label'))).toEqual([
@@ -64,8 +74,8 @@ describe('ProjectCard', () => {
     const wrapper = await mountSuspended(ProjectCard, { props: { project } })
     expect(wrapper.find('img').exists()).toBe(false)
     expect(wrapper.find('.terminal__line').text()).toBe('demo run')
-    expect(wrapper.find('.project__status').text()).toBe('In progress')
-    expect(wrapper.findAll('a')).toHaveLength(1)
+    expect(wrapper.find('.project-meta__status').text()).toBe('In progress')
+    expect(wrapper.findAll('.project__links a')).toHaveLength(1)
   })
 
   it('can render its title as h3 inside another section', async () => {

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // Stands in for a screenshot when a project has no user interface: the
 // commands you would actually type to run it.
-defineProps<{ lines: string[]; label: string }>()
+// `compact` drops the 16:10 frame that lines the block up with screenshots
+// in the list; on a project page the commands only take the room they need.
+defineProps<{ lines: string[]; label: string; compact?: boolean }>()
 </script>
 
 <template>
-  <figure class="terminal">
+  <figure class="terminal" :class="{ 'terminal--compact': compact }">
     <pre
       class="terminal__body"
     ><code><span v-for="line in lines" :key="line" class="terminal__line">{{ line }}</span></code></pre>
@@ -25,6 +27,15 @@ defineProps<{ lines: string[]; label: string }>()
   background: var(--color-terminal-bg);
   color: var(--color-terminal-text);
   overflow: hidden;
+}
+
+.terminal--compact {
+  aspect-ratio: auto;
+  padding: var(--space-8);
+
+  .terminal__body {
+    font-size: var(--text-base);
+  }
 }
 
 .terminal__body {

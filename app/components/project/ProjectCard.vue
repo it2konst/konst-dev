@@ -4,46 +4,28 @@ import type { Project } from '~/composables/useProjects'
 const props = defineProps<{ project: Project; headingLevel?: 2 | 3 }>()
 
 const { t } = useI18n()
-const { pick, formatMonth } = useLocalized()
+const { pick } = useLocalized()
+const localePath = useLocalePath()
 
 const heading = computed(() => `h${props.headingLevel ?? 2}`)
 const headingId = computed(() => `project-${props.project.slug}`)
-const statusLabel = computed(() =>
-  props.project.status === 'live' ? null : t(`projects.status.${props.project.status}`),
-)
+const pagePath = computed(() => localePath(`/projects/${props.project.slug}`))
 </script>
 
 <template>
   <article class="project" :aria-labelledby="headingId">
-    <div class="project__media">
-      <NuxtPicture
-        v-if="project.cover"
-        :src="project.cover.src"
-        :alt="pick(project.cover.alt)"
-        width="1440"
-        height="900"
-        sizes="640:100vw 768:45vw 1280:520px"
-        legacy-format="webp"
-        loading="lazy"
-        decoding="async"
-        :img-attrs="{ class: 'project__cover' }"
-      />
-      <ProjectTerminal
-        v-else-if="project.terminal"
-        :lines="project.terminal"
-        :label="t('projects.terminalLabel', { name: project.name })"
-      />
-    </div>
+    <!-- The picture repeats the title link for pointer users; keyboard and
+         screen reader users get the title link only -->
+    <NuxtLink :to="pagePath" class="project__media" tabindex="-1" aria-hidden="true">
+      <ProjectMedia :project="project" sizes="640:100vw 768:45vw 1280:520px" />
+    </NuxtLink>
 
     <div class="project__body">
       <header class="project__header">
         <component :is="heading" :id="headingId" class="project__name">
-          {{ project.name }}
+          <NuxtLink :to="pagePath" class="project__name-link">{{ project.name }}</NuxtLink>
         </component>
-        <p class="project__meta">
-          <time :datetime="project.date">{{ formatMonth(project.date) }}</time>
-          <span v-if="statusLabel" class="project__status">{{ statusLabel }}</span>
-        </p>
+        <ProjectMeta :project="project" />
       </header>
 
       <p class="project__summary">{{ pick(project.summary) }}</p>
@@ -84,16 +66,14 @@ const statusLabel = computed(() =>
   }
 }
 
-// The <img> is rendered by NuxtPicture, so scoped styles need :deep()
-.project__media :deep(.project__cover) {
+.project__media {
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-subtle);
-  background: var(--color-surface);
+  transition: opacity var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    opacity: 0.92;
+  }
 }
 
 .project__body {
@@ -116,28 +96,12 @@ const statusLabel = computed(() =>
   }
 }
 
-.project__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3);
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
+.project__name-link {
+  text-decoration: none;
 
-// Text label plus the LED: a project that is still being built is "blinking"
-.project__status {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-text);
-
-  &::before {
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 2px;
-    background: var(--color-accent-fill);
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
   }
 }
 

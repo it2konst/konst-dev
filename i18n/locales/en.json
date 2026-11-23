@@ -41,6 +41,17 @@
       "archived": "Archived"
     }
   },
+  "project": {
+    "back": "All projects",
+    "inside": "What's inside",
+    "stack": "Stack",
+    "pagerLabel": "More projects",
+    "newer": "Newer project",
+    "older": "Older project"
+  },
+  "filter": {
+    "showWith": "Show projects with {tech}"
+  },
   "about": {
     "title": "About",
     "lead": "Experience, skills and how to reach me.",

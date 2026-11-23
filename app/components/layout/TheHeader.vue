@@ -1,6 +1,14 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
+
+// A section stays highlighted on its inner pages too: /projects/svg-forge
+// is a sibling route of /projects for the router, so its own active class
+// does not cover it
+function isCurrentSection(path: string) {
+  return route.path === path || route.path.startsWith(`${path}/`)
+}
 
 const links = computed(() => [
   { to: localePath('/projects'), label: t('nav.projects') },
@@ -19,7 +27,12 @@ const links = computed(() => [
       <nav class="nav" :aria-label="t('a11y.mainNav')">
         <ul role="list" class="nav__list">
           <li v-for="link in links" :key="link.to">
-            <NuxtLink :to="link.to" class="nav__link">{{ link.label }}</NuxtLink>
+            <NuxtLink
+              :to="link.to"
+              class="nav__link"
+              :class="{ 'nav__link--current': isCurrentSection(link.to) }"
+              >{{ link.label }}</NuxtLink
+            >
           </li>
         </ul>
       </nav>
@@ -105,8 +118,7 @@ const links = computed(() => [
     color: var(--color-text);
   }
 
-  // Also active on nested pages, such as a single project
-  &.router-link-active {
+  &--current {
     color: var(--color-text);
     border-bottom-color: var(--color-accent-fill);
   }
