@@ -27,7 +27,22 @@
     "greeting": "Hi, I'm Konstantin.",
     "lead": "I build Vue and Nuxt apps, browser tools that keep your files on your device, and UDP transports in Go for games that can't afford lag.",
     "seeProjects": "See projects",
-    "github": "GitHub profile"
+    "github": "GitHub profile",
+    "featured": "Featured projects",
+    "allProjects": "All projects ({count})",
+    "areasTitle": "What I work on",
+    "areas": {
+      "frontend": {
+        "title": "Interfaces",
+        "text": "Vue 3, Nuxt and TypeScript: at work on enterprise CRM systems, and in my own projects on browser tools that keep files on your device, install as apps and work offline.",
+        "link": "Projects with Vue"
+      },
+      "network": {
+        "title": "Networks",
+        "text": "Go and Linux: GameTunnel, a UDP transport for games and streaming, with encryption and traffic that looks like QUIC.",
+        "link": "Projects with Go"
+      }
+    }
   },
   "projects": {
     "title": "Projects",
