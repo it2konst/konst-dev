@@ -33,3 +33,5 @@ jobs:
       - run: pnpm test
       # The site is deployed as static files, so CI builds it the same way
       - run: pnpm generate
+      # Every image and file the pages refer to must be in the build
+      - run: pnpm check:assets

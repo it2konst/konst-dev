@@ -15,6 +15,7 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "check:assets": "node scripts/check-assets.mjs",
     "postinstall": "nuxt prepare",
     "lint": "eslint . --fix --cache",
     "lint:check": "eslint . --cache",

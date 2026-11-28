@@ -64,19 +64,20 @@ pnpm dev
 
 The dev server runs at http://localhost:3000.
 
-| Script              | What it does                                   |
-| ------------------- | ---------------------------------------------- |
-| `pnpm dev`          | Start the dev server                           |
-| `pnpm generate`     | Build the static site into `.output/public`    |
-| `pnpm preview`      | Serve the built site locally                   |
-| `pnpm build`        | Build for a Node server (not used for hosting) |
-| `pnpm lint`         | Lint and auto-fix                              |
-| `pnpm lint:check`   | Lint without changing files                    |
-| `pnpm format`       | Format the project with Prettier               |
-| `pnpm format:check` | Check formatting                               |
-| `pnpm type-check`   | Run vue-tsc through `nuxt typecheck`           |
-| `pnpm test`         | Run all tests once                             |
-| `pnpm test:watch`   | Run tests on every change                      |
+| Script              | What it does                                     |
+| ------------------- | ------------------------------------------------ |
+| `pnpm dev`          | Start the dev server                             |
+| `pnpm generate`     | Build the static site into `.output/public`      |
+| `pnpm preview`      | Serve the built site locally                     |
+| `pnpm check:assets` | Check that every file the built pages use exists |
+| `pnpm build`        | Build for a Node server (not used for hosting)   |
+| `pnpm lint`         | Lint and auto-fix                                |
+| `pnpm lint:check`   | Lint without changing files                      |
+| `pnpm format`       | Format the project with Prettier                 |
+| `pnpm format:check` | Check formatting                                 |
+| `pnpm type-check`   | Run vue-tsc through `nuxt typecheck`             |
+| `pnpm test`         | Run all tests once                               |
+| `pnpm test:watch`   | Run tests on every change                        |
 
 ## Adding a project
 
@@ -122,13 +123,17 @@ The project page at `/projects/<slug>` and `/ru/projects/<slug>`, the card in th
 | `cover`      | one of   | Screenshot path and its description in both languages                                |
 | `terminal`   | one of   | Up to five commands, shown instead of a screenshot for projects without a UI         |
 
+### Deploying
+
+The site is static: deploy the output of `pnpm generate`. On Vercel, `vercel.json` sets this as the build command. Vercel's default for Nuxt is `nuxt build`, which renders some pages on a server, and screenshots for those pages would never be generated.
+
 ### Site address
 
 Canonical and hreflang links need the public address of the site. It defaults to `https://konst-dev.vercel.app`; to use another one, set `NUXT_PUBLIC_SITE_URL` in the hosting settings.
 
 ## Tests
 
-Tests run with Vitest locally and on every push in GitHub Actions, together with lint, formatting, type-check and the static build.
+Tests run with Vitest locally and on every push in GitHub Actions, together with lint, formatting, type-check and the static build. After the build, `pnpm check:assets` goes through every page and fails if an image or file it refers to is missing from the output.
 
 - **Design tokens:** the test reads the SCSS token files and checks every text color against every surface in both themes for WCAG AA contrast, plus text on the accent fill and in the terminal block. Change the palette in a way that hurts readability, and CI fails.
 - **Project files:** every file in `content/projects` is checked against the schema, plus the rules that span fields or the file system: a cover or a terminal block, a demo link for live projects with an interface, a URL-safe file name, the cover present on disk. The schema itself is tested with broken examples.
