@@ -7,7 +7,7 @@ useHead({ title: () => t('home.title') })
 
 <template>
   <section class="container hero" aria-labelledby="hero-title">
-    <h1 id="hero-title" class="hero__title">{{ t('home.greeting') }}</h1>
+    <HomePacketHeading id="hero-title" class="hero__title" :text="t('home.greeting')" />
     <p class="hero__role">{{ t('home.title') }}</p>
     <p class="hero__lead">{{ t('home.lead') }}</p>
     <div class="hero__actions">
