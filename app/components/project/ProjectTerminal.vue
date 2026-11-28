@@ -8,9 +8,11 @@ defineProps<{ lines: string[]; label: string; compact?: boolean }>()
 
 <template>
   <figure class="terminal" :class="{ 'terminal--compact': compact }">
-    <pre
-      class="terminal__body"
-    ><code><span v-for="line in lines" :key="line" class="terminal__line">{{ line }}</span></code></pre>
+    <pre class="terminal__body"><code><span
+      v-for="(line, l) in lines"
+      :key="l"
+      class="terminal__line"
+    ><template v-for="(token, i) in line.split(' ')" :key="i"><span class="terminal__token">{{ token }}</span>{{ i < line.split(' ').length - 1 ? ' ' : '' }}</template></span></code></pre>
     <figcaption class="visually-hidden">{{ label }}</figcaption>
   </figure>
 </template>
@@ -43,11 +45,20 @@ defineProps<{ lines: string[]; label: string; compact?: boolean }>()
   font-size: var(--text-sm);
   line-height: 1.9;
   white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  // Wrap at spaces; break inside a word only when it can't fit at all
+  overflow-wrap: break-word;
+}
+
+.terminal__token {
+  // Lines wrap only between words: never inside game-tun.json at its hyphen
+  white-space: nowrap;
 }
 
 .terminal__line {
   display: block;
+  // Hanging indent: a wrapped command continues under the command, not the $
+  padding-left: 2ch;
+  text-indent: -2ch;
 
   &::before {
     content: '$ ';

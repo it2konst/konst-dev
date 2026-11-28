@@ -68,6 +68,9 @@ const pagePath = computed(() => localePath(`/projects/${props.project.slug}`))
 
 .project__media {
   display: block;
+  // Wraps the terminal block too, which must not inherit link underlines
+  text-decoration: none;
+  color: inherit;
   border-radius: var(--radius-md);
   transition: opacity var(--duration-fast) var(--ease-out);
 
